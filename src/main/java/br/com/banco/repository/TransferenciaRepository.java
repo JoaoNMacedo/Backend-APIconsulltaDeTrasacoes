@@ -13,6 +13,13 @@ import br.com.banco.entity.Transferencia;
 @Repository
 public interface TransferenciaRepository extends JpaRepository <Transferencia, Long>{
 		
-	@Query("SELECT t FROM Transferencia t WHERE t.dataTransferencia >= :dataInicial AND t.dataTransferencia <= :dataFinal")
-	    List<Transferencia> obterTransacoesPorData(@Param("dataInicial") LocalDateTime dataInicial, @Param("dataFinal") LocalDateTime dataFinal);
+		@Query("SELECT t FROM Transferencia t " +
+		       "WHERE (:dataInicial IS NULL OR t.dataTransferencia >= :dataInicial) " +
+		       "AND (:dataFinal IS NULL OR t.dataTransferencia <= :dataFinal) " +
+		       "AND (:nomeOperadorTransacao IS NULL OR LOWER(t.nomeOperadorTransacao) LIKE LOWER(CONCAT('%', :nomeOperadorTransacao, '%')))")
+		List<Transferencia> obterTransacoesPorDataENome(
+		       @Param("dataInicial") LocalDateTime dataInicial,
+		       @Param("dataFinal") LocalDateTime dataFinal,
+		       @Param("nomeOperadorTransacao") String nomeOperadorTransacao);
+
 }
