@@ -21,5 +21,16 @@ public interface TransferenciaRepository extends JpaRepository <Transferencia, L
 		       @Param("dataInicial") LocalDateTime dataInicial,
 		       @Param("dataFinal") LocalDateTime dataFinal,
 		       @Param("nomeOperadorTransacao") String nomeOperadorTransacao);
+		
 
+		 @Query("SELECT t FROM Transferencia t " +
+		           "WHERE (:dataInicial IS NULL OR t.dataTransferencia >= :dataInicial) " +
+		           "AND (:dataFinal IS NULL OR t.dataTransferencia <= :dataFinal) " +
+		           "AND (:nomeOperadorTransacao IS NULL OR LOWER(t.nomeOperadorTransacao) LIKE LOWER(CONCAT('%', :nomeOperadorTransacao, '%'))) " +
+		           "AND (:idConta IS NULL OR t.contaId = :idConta)")
+		 List<Transferencia> obterTransacoesPorId(
+		            @Param("dataInicial") LocalDateTime dataInicial,
+		            @Param("dataFinal") LocalDateTime dataFinal,
+		            @Param("nomeOperadorTransacao") String nomeOperadorTransacao,
+		            @Param("idConta") Long idConta);
 }
