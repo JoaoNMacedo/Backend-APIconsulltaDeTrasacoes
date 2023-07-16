@@ -19,8 +19,9 @@ public class TransferenciaService {
         return transferenciaRepository.findAll();
     }
 
-    public List<Transferencia> obterTransacoesPorData(LocalDateTime dataInicial, LocalDateTime dataFinal) {
-        return transferenciaRepository.obterTransacoesPorData(dataInicial, dataFinal);
+    public List<Transferencia> obterTransacoesPorFiltros(LocalDateTime dataInicial, LocalDateTime dataFinal, String nomeOperadorTransacao) {
+        return transferenciaRepository.obterTransacoesPorDataENome(dataInicial, dataFinal, nomeOperadorTransacao);
     }
-}
+ }
+
 
