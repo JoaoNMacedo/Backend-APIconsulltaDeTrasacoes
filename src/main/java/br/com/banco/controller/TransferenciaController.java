@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,5 +28,16 @@ public class TransferenciaController {
         List<Transferencia> transferencias = transferenciaService.obterTransacoesPorFiltros(dataInicial, dataFinal, nomeOperadorTransacao);
         return ResponseEntity.ok(transferencias);
     }
+    
+    @GetMapping("/{idConta}")
+    public ResponseEntity<?> obterTransferenciaPorId(
+    		@RequestParam(value = "dataInicial", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
+            @RequestParam(value = "dataFinal", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal,
+            @RequestParam(value = "nomeOperadorTransacao", required = false) String nomeOperadorTransacao,
+    		@PathVariable("idConta") Long idConta) {
+        List<Transferencia> transferencias = transferenciaService.obterTransacoesPorId(dataInicial, dataFinal, nomeOperadorTransacao, idConta);
+        return ResponseEntity.ok(transferencias);
+    }
 }
+    
 
