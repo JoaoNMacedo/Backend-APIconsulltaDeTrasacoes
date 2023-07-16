@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,9 +25,9 @@ public class Transferencia {
     @Column(name = "DATA_TRANSFERENCIA", nullable = false)
     private LocalDateTime dataTransferencia;
 
-    @Column(name = "VALOR", nullable = false)
-    private Double valor;
-
+    @Column(name = "VALOR", nullable = false, precision = 10, scale = 2)
+    private BigDecimal valor;
+    
     @Column(name = "TIPO", nullable = false)
     private String tipo;
 
@@ -33,8 +36,6 @@ public class Transferencia {
 
     @Column(name = "CONTA_ID", nullable = false)
     private Long contaId;
-
-    // Getters e Setters
 
     public Long getId() {
         return id;
@@ -52,12 +53,12 @@ public class Transferencia {
         this.dataTransferencia = dataTransferencia;
     }
 
-    public Double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(Double valor) {
-        this.valor = valor;
+    public void setValor(BigDecimal valor) {
+        this.valor = valor.setScale(2, RoundingMode.HALF_UP);
     }
 
     public String getTipo() {
