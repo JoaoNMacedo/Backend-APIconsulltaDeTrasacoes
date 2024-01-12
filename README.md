@@ -1,10 +1,6 @@
-# PS-SuperaBackendTest
+# API de Consulta de transferências bancárias.
 
-
-# API de Transferências Bancárias
-
-Esta é uma API para consulta de transferências bancárias.
-Este é um projeto JavaSpringBoot desenvolvido como parte de um teste técnico.
+Este é um projeto JavaSpringBoot que disponibiliza uma API para consulta de transferências bancárias.
 
 ## Funcionalidades
 
